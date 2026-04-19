@@ -13,7 +13,8 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copia o app, template, fontes e formulário.
 COPY app.py substituir_campos.py formulario.html ./
 COPY fonts ./fonts
-COPY "Template Proposta.pdf" ./
+# Sintaxe JSON-array para lidar com o espaço no nome do arquivo.
+COPY ["Template Proposta.pdf", "./"]
 
 EXPOSE 8000
 
