@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Formulário — Proposta JK Academy</title>
+<style>
+  :root{
+    --bg:#030303;
+    --bg2:#111;
+    --fg:#ffffff;
+    --peach:#ffaa78;
+    --muted:#888;
+    --border:#2a2a2a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height:100vh;
+    padding:40px 20px;
+  }
+  .wrap{
+    max-width:720px;
+    margin:0 auto;
+  }
+  h1{
+    font-weight:800;
+    font-size:32px;
+    margin:0 0 6px;
+    letter-spacing:-0.5px;
+  }
+  h1 .peach{color:var(--peach);}
+  .subtitle{
+    color:var(--muted);
+    margin-bottom:32px;
+    font-size:15px;
+  }
+  .card{
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:28px;
+  }
+  .field{
+    margin-bottom:22px;
+  }
+  label{
+    display:block;
+    font-weight:700;
+    font-size:14px;
+    margin-bottom:8px;
+  }
+  label .hint{
+    font-weight:400;
+    color:var(--muted);
+    font-size:12px;
+    margin-left:6px;
+  }
+  input[type="text"], textarea{
+    width:100%;
+    background:var(--bg);
+    color:var(--fg);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:15px;
+    font-family:inherit;
+    outline:none;
+    transition:border-color .15s;
+  }
+  input[type="text"]:focus, textarea:focus{
+    border-color:var(--peach);
+  }
+  textarea{
+    min-height:90px;
+    resize:vertical;
+  }
+  .actions{
+    display:flex;
+    gap:10px;
+    margin-top:8px;
+    flex-wrap:wrap;
+  }
+  button{
+    cursor:pointer;
+    border:0;
+    border-radius:999px;
+    padding:12px 22px;
+    font-weight:700;
+    font-size:14px;
+    font-family:inherit;
+  }
+  button.primary{
+    background:var(--peach);
+    color:#111;
+  }
+  button.primary:hover{filter:brightness(1.05);}
+  button.ghost{
+    background:transparent;
+    color:var(--fg);
+    border:1px solid var(--border);
+  }
+  pre{
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:14px;
+    font-size:13px;
+    overflow:auto;
+    max-height:260px;
+    color:var(--peach);
+    margin:0;
+  }
+  .muted{color:var(--muted); font-size:13px;}
+  .ok{color:#7bd88f;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Proposta <span class="peach">JK Academy</span></h1>
+    <p class="subtitle">Preencha os campos abaixo e clique em <strong>Gerar PDF</strong> para baixar a proposta pronta.</p>
+
+    <div class="card">
+      <form id="f">
+        <div class="field">
+          <label for="text-1">Frase de destaque (página 2) <span class="hint">{text-1}</span></label>
+          <textarea id="text-1" name="text-1" placeholder="Ex.: A comunicação é o primeiro passo para o sucesso"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="metodo">Método — descrição (página 8) <span class="hint">{metodo}</span></label>
+          <textarea id="metodo" name="metodo" placeholder="Ex.: O Método JK In-Company combina teoria e prática para transformar a comunicação da sua equipe."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="lista">Lista de bullet points (página 8) <span class="hint">{lista} — um item por linha</span></label>
+          <textarea id="lista" name="lista" style="min-height:140px;" placeholder="Diagnóstico personalizado da equipe&#10;Workshops práticos com simulações reais&#10;Acompanhamento individual de cada participante&#10;Relatório final de evolução"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="conclusao">Conclusão (página 8) <span class="hint">{conclusao}</span></label>
+          <textarea id="conclusao" name="conclusao" placeholder="Ex.: Ao final, sua equipe estará pronta para se comunicar com clareza, confiança e impacto."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="carga-horaria">Carga horária <span class="hint">{carga-horaria}</span></label>
+          <input id="carga-horaria" name="carga-horaria" type="text" placeholder="Ex.: 40 horas">
+        </div>
+
+        <div class="field">
+          <label for="data">Data <span class="hint">{data}</span></label>
+          <input id="data" name="data" type="text" placeholder="Ex.: 10/05/2026">
+        </div>
+
+        <div class="field">
+          <label for="horario">Horário <span class="hint">{horario}</span></label>
+          <input id="horario" name="horario" type="text" placeholder="Ex.: 09h às 18h">
+        </div>
+
+        <div class="field">
+          <label for="local">Local <span class="hint">{local}</span></label>
+          <input id="local" name="local" type="text" placeholder="Ex.: Online - via Zoom">
+        </div>
+
+        <div class="field">
+          <label for="pessoas">Quantidade de pessoas <span class="hint">{pessoas}</span></label>
+          <input id="pessoas" name="pessoas" type="text" placeholder="Ex.: 20">
+        </div>
+
+        <div class="actions">
+          <button type="button" class="primary" id="generate">Gerar PDF</button>
+          <button type="button" class="ghost" id="download">Baixar campos.json</button>
+          <button type="button" class="ghost" id="preview">Ver JSON</button>
+        </div>
+
+        <p class="muted" style="margin-top:14px;" id="status"></p>
+        <pre id="json" hidden></pre>
+      </form>
+    </div>
+  </div>
+
+<script>
+  const form = document.getElementById('f');
+  const jsonBox = document.getElementById('json');
+  const status = document.getElementById('status');
+  const fields = ['text-1','metodo','lista','conclusao','carga-horaria','data','horario','local','pessoas'];
+
+  // Preserva valores digitados entre reloads
+  fields.forEach(k => {
+    const saved = localStorage.getItem('campo:'+k);
+    if (saved !== null) document.getElementById(k).value = saved;
+    document.getElementById(k).addEventListener('input', e =>
+      localStorage.setItem('campo:'+k, e.target.value));
+  });
+
+  function collect(){
+    const out = {};
+    fields.forEach(k => out[k] = document.getElementById(k).value);
+    return out;
+  }
+
+  document.getElementById('preview').onclick = () => {
+    const data = collect();
+    jsonBox.hidden = false;
+    jsonBox.textContent = JSON.stringify(data, null, 2);
+    status.textContent = '';
+  };
+
+  document.getElementById('download').onclick = () => {
+    const data = collect();
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'campos.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    status.innerHTML = '<span class="ok">campos.json baixado.</span>';
+  };
+
+  const genBtn = document.getElementById('generate');
+  genBtn.onclick = async () => {
+    const data = collect();
+    genBtn.disabled = true;
+    const originalLabel = genBtn.textContent;
+    genBtn.textContent = 'Gerando...';
+    status.innerHTML = '<span class="muted">Gerando PDF, aguarde…</span>';
+
+    try {
+      const resp = await fetch('/gerar', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data),
+      });
+
+      if (!resp.ok) {
+        let msg = 'Erro ao gerar PDF.';
+        try { const j = await resp.json(); if (j.detail) msg = j.detail; } catch {}
+        throw new Error(msg);
+      }
+
+      const blob = await resp.blob();
+      // Tenta extrair o nome do arquivo do header Content-Disposition.
+      let filename = 'Proposta-K-Academy.pdf';
+      const cd = resp.headers.get('Content-Disposition') || '';
+      const m = cd.match(/filename="?([^"]+)"?/);
+      if (m) filename = m[1];
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      status.innerHTML = '<span class="ok">PDF gerado! Se o download não começou, verifique os bloqueios do navegador.</span>';
+    } catch (err) {
+      status.innerHTML = '<span style="color:#ff6b6b;">' + (err.message || err) + '</span>';
+    } finally {
+      genBtn.disabled = false;
+      genBtn.textContent = originalLabel;
+    }
+  };
+</script>
+</body>
+</html>
