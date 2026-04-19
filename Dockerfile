@@ -18,5 +18,6 @@ COPY ["Template Proposta.pdf", "./"]
 
 EXPOSE 8000
 
+# 1 worker só (free tier tem 512MB RAM — mais workers causam OOM).
 # $PORT é injetado por Render/Fly/Railway; default 8000 em local.
-CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000}"]
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]

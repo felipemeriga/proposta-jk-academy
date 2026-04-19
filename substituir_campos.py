@@ -274,7 +274,9 @@ def generate_pdf(values: dict, template_path: str = TEMPLATE_PDF, verbose: bool 
                 continue
             insert_replacement(page, ph, str(value))
 
-    pdf_bytes = doc.tobytes(garbage=4, deflate=True)
+    # garbage=1 + deflate=False deixam o arquivo maior mas reduzem
+    # drasticamente o pico de memória (importante em hosts com 512 MB).
+    pdf_bytes = doc.tobytes(garbage=1, deflate=False)
     doc.close()
     return pdf_bytes
 
